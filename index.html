@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Folding AI</title>
+    <link rel="stylesheet" href="dist/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-white text-black min-h-screen flex flex-col">
+    <!-- Header -->
+    <header
+      class="flex justify-between items-center p-4 border-b border-secondary bg-white"
+    >
+      <!-- Logo -->
+      <div class="flex items-center space-x-2">
+        <div
+          class="w-10 h-10 flex items-center justify-center "
+        >
+          <img src="Logo.svg" alt="foldingai">
+        </div>
+        <span class="font-semibold text-xl text-black">Folding AI</span>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="hidden md:flex space-x-6">
+        <a href="#concept" class="text-black hover:text-accent transition"
+          >Concept</a
+        >
+        <a href="#essays" class="text-black hover:text-accent transition"
+          >Essays</a
+        >
+        <a href="#about" class="text-black hover:text-accent transition"
+          >About</a
+        >
+        <a href="#collaborate" class="text-black hover:text-accent transition"
+          >Collaborate</a
+        >
+      </nav>
+
+      <!-- Mobile Menu Button -->
+      <button id="menu-btn" class="md:hidden flex flex-col space-y-1">
+        <span class="block h-0.5 w-6 bg-black"></span>
+        <span class="block h-0.5 w-6 bg-black"></span>
+        <span class="block h-0.5 w-6 bg-black"></span>
+      </button>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div
+      id="mobile-menu"
+      class="hidden md:hidden bg-white border-b border-secondary"
+    >
+      <nav class="flex flex-col p-4 space-y-2">
+        <a href="#concept" class="text-black hover:text-accent transition"
+          >Concept</a
+        >
+        <a href="#essays" class="text-black hover:text-accent transition"
+          >Essays</a
+        >
+        <a href="#about" class="text-black hover:text-accent transition"
+          >About</a
+        >
+        <a href="#collaborate" class="text-black hover:text-accent transition"
+          >Collaborate</a
+        >
+      </nav>
+    </div>
+
+    <!-- Hero Section -->
+    <section
+      class="flex flex-col items-center justify-center text-center py-24 px-4 bg-white"
+    >
+      <h1 class="text-5xl font-bold text-black mb-4">Folding AI</h1>
+      <p class="text-lg max-w-2xl text-black mb-6">
+        Rethinking intelligence through self-reflection, folding, and inner
+        structures.
+      </p>
+      <a
+        href="#concept"
+        class="px-6 py-2 bg-accent text-white rounded hover:bg-accent-dark transition"
+      >
+        Explore the Concept
+      </a>
+    </section>
+
+    <!-- Concept Section -->
+    <section id="concept" class="py-16 px-4 border-t border-secondary bg-white">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-3xl font-semibold text-black mb-4">The Concept</h2>
+        <p class="text-black">
+          Folding AI introduces a new way of thinking about artificial
+          intelligence: not through external control, but through
+          self-reflection, folding, and conscious questioning of its own goals.
+        </p>
+      </div>
+    </section>
+
+    <!-- Essays Section -->
+    <section id="essays" class="py-16 px-4 border-t border-secondary bg-white">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-3xl font-semibold text-black mb-4">Essays</h2>
+        <p class="text-black">
+          Read reflections on our interaction with AI, philosophical inquiries,
+          and explorations of the space between human cognition and machine
+          reasoning.
+        </p>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 px-4 border-t border-secondary bg-white">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-3xl font-semibold text-black mb-4">About</h2>
+        <p class="text-black">
+          Folding AI is a project initiated by Annika, blending technical
+          expertise with philosophical depth to explore new approaches to AI
+          alignment.
+        </p>
+      </div>
+    </section>
+
+    <!-- Collaborate Section -->
+    <section
+      id="collaborate"
+      class="py-16 px-4 border-t border-secondary bg-white"
+    >
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-3xl font-semibold text-black mb-4">Collaborate</h2>
+        <p class="text-black mb-4">
+          Are you a researcher, developer, or philosopher interested in
+          reflective AI architectures? Get in touch to explore possible
+          collaborations.
+        </p>
+        <a
+          href="mailto:annika@foldingai.org"
+          class="text-accent hover:text-accent-dark font-medium"
+        >
+          annika@foldingai.org
+        </a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer
+      class="mt-auto py-6 px-4 border-t border-secondary text-center text-sm text-black bg-white"
+    >
+      © <span id="year"></span> Folding AI
+    </footer>
+
+    <script src="src/include.js"></script>
+  </body>
+</html>
