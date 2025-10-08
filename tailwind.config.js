@@ -11,10 +11,9 @@ module.exports = {
           dark: "#8AA522", // etwas gedecktere Variante für Hover / aktive Zustände
         },
       },
-
       fontFamily: {
-        sans: ["Inter", "sans-serif"],
-        serif: ["Playfair Display", "serif"],
+        heading: ["Sora", "sans-serif"],
+        body: ["Tenor Sans", "sans-serif"],
       },
     },
   },

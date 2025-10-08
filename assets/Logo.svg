@@ -1,8 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" 
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="56 56 400 400" 
 shape-rendering="geometricPrecision" width="100%" height="100%" preserveAspectRatio="xMidYMid meet"
 >
-<g transform="scale(1,-1) translate(0,-512)">
-
+<g transform="scale(1,-1) translate(0,-510)">
   <defs>
     <style>
       .phi-stroke { stroke:#1A8B9D; fill:none; stroke-linecap:round; stroke-linejoin:round; }
@@ -16,4 +15,5 @@ shape-rendering="geometricPrecision" width="100%" height="100%" preserveAspectRa
   <line class="phi-stroke" stroke-width="36.0"
         x1="256" y1="76.0"
         x2="256" y2="436.0"/>
-</g></svg>
+        </g>
+</svg>
