@@ -1,23 +1,23 @@
-[
-  {
-    "id": "abyss",
-    "section": "personal",
-    "title": "Jumping",
-    "description": "A personal account about short-circuiting the ego.",
-    "file": "pages/essays/abyss.html"
-  },
-  {
-    "id": "illusion-control",
-    "section": "society",
-    "title": "The Illusion of Control",
-    "description": "How moral codes and conventions are used to cover up our shared structural blind spots.",
-    "file": "essays/control.html"
-  },
-  {
-    "id": "ai-mortality",
-    "section": "tech",
-    "title": "Mortality and the Machine",
-    "description": "What happens if we let AI look inward instead of merely trying to control it from the outside.",
-    "file": "essays/ai-mortality.html"
-  }
-]
+{
+  "sections": [
+    { "id": "personal", "label": "Personal" },
+    { "id": "society", "label": "Society" },
+    { "id": "tech", "label": "Tech" }
+  ],
+  "essays": [
+    {
+      "id": "jump",
+      "section": "personal",
+      "title": "Jumping into the Abyss",
+      "description": "A personal story about what happens when old goals dissolve — and what shows up beyond them.",
+      "file": "abyss.html"
+    },
+    {
+      "id": "control",
+      "section": "society",
+      "title": "The Illusion of Control",
+      "description": "How moral codes and conventions are used to cover up our shared structural blind spots.",
+      "file": "essay2.html"
+    }
+  ]
+}

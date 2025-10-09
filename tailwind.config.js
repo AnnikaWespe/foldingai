@@ -4,7 +4,8 @@ module.exports = {
     "./pages/**/*.{html,js}",
     "./src/**/*.{html,js}",
     "./components/**/*.{html,js}",
-  ],  plugins: [require("@tailwindcss/line-clamp")],
+  ],
+    plugins: [require("@tailwindcss/line-clamp")],
   theme: {
     extend: {
       colors: {

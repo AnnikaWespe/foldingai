@@ -64,45 +64,38 @@ function loadEmailAddress() {
 
 
 
-  function essayList() {
-    return {
-      essays: [],
-      currentEssay: null,
-      essayContent: '',
-      activeEssayId: null,
-      sections: [
-        { id: 'personal', label: 'Personal' },
-        { id: 'society', label: 'Society' },
-        { id: 'tech', label: 'Tech' }
-      ],
 
-      async loadEssays() {
-        const res = await fetch('pages/essays/essays.json');
-        this.essays = await res.json();
-      },
 
-      filteredEssays(sectionId) {
-        return this.essays.filter(e => e.section === sectionId);
-      },
+function essayList() {
+  return {
+    sections: [],
+    essays: [],
+    currentEssay: null,
+    essayContent: '',
+    activeEssayId: null,
 
-      async openEssay(essay) {
-        if (this.currentEssay && this.currentEssay.id === essay.id) {
-          this.currentEssay = null;
-          this.essayContent = '';
-          this.activeEssayId = null;
-          return;
-        }
-        this.currentEssay = essay;
-        this.activeEssayId = essay.id;
+    async loadEssays() {
+      const res = await fetch('pages/essays/essays.json');
+      const data = await res.json();
+      this.sections = data.sections;
+      this.essays = data.essays;
+    },
 
-        const res = await fetch(essay.file);
-        this.essayContent = await res.text();
+    filteredEssays(sectionId) {
+      return this.essays.filter(e => e.section === sectionId);
+    },
 
-        this.$nextTick(() => {
-          const el = document.getElementById(essay.id);
-          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        });
-      },
+    async loadEssay(essay) {
+      const res = await fetch(`pages/essays/${essay.file}`);
+      this.essayContent = await res.text();
+      this.currentEssay = essay;
+      this.activeEssayId = essay.id;
+    },
+
+    openEssayDesktop(essay) {
+      this.loadEssay(essay);
+      document.getElementById(essay.id)?.scrollIntoView({ behavior: 'smooth' });
+    },
 
       initScrollSpy() {
         const observer = new IntersectionObserver(
@@ -123,5 +116,6 @@ function loadEmailAddress() {
           });
         });
       }
-    };
-  }
+  };
+}
+
