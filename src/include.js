@@ -41,6 +41,14 @@ function loadHeaderAndFooterFunctions() {
 }
 
 function loadContent() {
+    fetch("pages/core.html")
+    .then((res) => res.text())
+    .then((data) => {
+      const element = document.getElementById("core");
+      if (element) {
+        element.innerHTML = data;
+      }
+    });
   fetch("pages/essays.html")
     .then((res) => res.text())
     .then((data) => {
