@@ -1,10 +1,10 @@
 [
   {
-    "id": "jumping-abyss",
+    "id": "abyss",
     "section": "personal",
-    "title": "Jumping into the Abyss",
-    "description": "A personal story about what happens when the old goals dissolve — and what shows up beyond them.",
-    "file": "essays/jump.html"
+    "title": "Jumping",
+    "description": "A personal account about short-circuiting the ego.",
+    "file": "pages/essays/abyss.html"
   },
   {
     "id": "illusion-control",

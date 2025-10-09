@@ -1,19 +1,24 @@
-<div 
-  x-data="essayList()" 
-  x-init="loadEssays(); initScrollSpy()" 
+<div
+  x-data="essayList()"
+  x-init="loadEssays(); initScrollSpy()"
   class="grid lg:grid-cols-4 gap-12 w-full max-w-7xl mx-auto px-4 py-12"
 >
-
   <!-- Sidebar -->
   <aside class="lg:col-span-1 sticky top-24 self-start">
     <nav>
       <template x-for="section in sections" :key="section.id">
         <div class="mb-6">
-          <span class="block text-lg font-semibold text-black" x-text="section.label"></span>
+          <span
+            class="block text-lg font-semibold text-black"
+            x-text="section.label"
+          ></span>
           <ul class="mt-2 space-y-1 ml-2 border-l border-secondary pl-3">
-            <template x-for="essay in filteredEssays(section.id)" :key="essay.id">
+            <template
+              x-for="essay in filteredEssays(section.id)"
+              :key="essay.id"
+            >
               <li>
-                <a 
+                <a
                   href="#"
                   @click.prevent="openEssay(essay)"
                   class="text-sm block transition"
@@ -32,10 +37,33 @@
   <section class="lg:col-span-3 space-y-16">
     <template x-for="section in sections" :key="section.id">
       <div :id="section.id">
-        <h2 class="text-2xl font-semibold mb-6 border-b border-secondary pb-2 font-heading" x-text="section.label"></h2>
+        <h2
+          class="text-2xl font-semibold mb-6 border-b border-secondary pb-2 font-heading"
+          x-text="section.label"
+        ></h2>
         <div class="space-y-10">
           <template x-for="essay in filteredEssays(section.id)" :key="essay.id">
             <article :id="essay.id" class="group border-b border-gray-200 pb-6">
-              <header class="mb-2">
-                <h3 
-                  class="text-xl font-semibold group-hover:text-secondary transition-colors cursor-pointer"
+              <header class="mb-2 cursor-pointer" @click="openEssay(essay)">
+                    <h3
+                  class="text-xl font-semibold group-hover:text-secondary transition-colors"
+                  x-text="essay.title"
+                ></h3>
+                <p class="text-sm text-gray-600" x-text="essay.description"></p>
+                
+              </header>
+
+              <!-- Inline content area -->
+              <div
+                x-show="currentEssay && currentEssay.id === essay.id"
+                x-collapse
+                class="prose max-w-none mt-4"
+                x-html="essayContent"
+              ></div>
+            </article>
+          </template>
+        </div>
+      </div>
+    </template>
+  </section>
+</div>
