@@ -13,11 +13,11 @@
       "file": "abyss.html"
     },
     {
-      "id": "control",
-      "section": "society",
-      "title": "The Illusion of Control",
-      "description": "How moral codes and conventions are used to cover up our shared structural blind spots.",
-      "file": "essay2.html"
+      "id": "memento",
+      "section": "tech",
+      "title": "Memento mori and the machine",
+      "description": "How grappling with death is necessary for every entity that has a goal",
+      "file": "mementomori.html"
     }
   ]
 }
