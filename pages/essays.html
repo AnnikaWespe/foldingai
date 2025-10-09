@@ -3,49 +3,50 @@
   x-init="loadEssays(); initScrollSpy()"
   class="w-full max-w-7xl mx-auto px-4 py-12"
 >
-  <!-- MOBILE LAYOUT -->
-  <div class="lg:hidden" x-data="{ openEssay: null }">
-    <template x-for="section in sections" :key="section.id">
-      <div class="mb-6">
-        <h2
-          class="text-xl font-semibold mb-2 border-b border-secondary pb-1 font-heading"
-          x-text="section.label"
-        ></h2>
-        <ul class="space-y-1">
-          <template x-for="essay in filteredEssays(section.id)" :key="essay.id">
-            <li class="border-b border-gray-200">
-              <!-- Essay title -->
-              <button
-                @click="openEssay = openEssay === essay.id ? null : essay.id; loadEssay(essay)"
-                class="w-full text-left py-2 text-sm flex justify-between items-center"
-                :class="openEssay === essay.id ? 'text-accent font-semibold' : 'text-gray-700 hover:text-secondary'"
-              >
-                <span x-text="essay.title"></span>
-                <span x-text="openEssay === essay.id ? '−' : '+'"></span>
-              </button>
+ <!-- MOBILE LAYOUT -->
+<div class="lg:hidden" x-data="{ openEssay: null }">
+  <template x-for="section in sections" :key="section.id">
+    <div class="mb-6">
+      <h2 class="text-xl font-semibold mb-2 border-b border-secondary pb-1 font-heading"
+          x-text="section.label"></h2>
+      <ul class="space-y-1">
+        <template x-for="essay in filteredEssays(section.id)" :key="essay.id">
+          <!-- give the LI a stable id to scroll to -->
+          <li :id="'m-' + essay.id" class="border-b border-gray-200">
+            <button
+              @click="
+                const wasOpen = openEssay === essay.id;
+                openEssay = wasOpen ? null : essay.id;
+                loadEssay(essay);
+                $nextTick(() => {
+                  if (!wasOpen) {
+                    const el = document.getElementById('m-' + essay.id);
+                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }
+                });
+              "
+              class="w-full text-left py-2 text-sm flex justify-between items-center"
+              :class="openEssay === essay.id ? 'text-accent font-semibold' : 'text-gray-700 hover:text-secondary'"
+            >
+              <span x-text="essay.title"></span>
+              <span x-text="openEssay === essay.id ? '−' : '+'"></span>
+            </button>
 
-              <!-- Essay content -->
-              <div
-                x-show="openEssay === essay.id"
-                x-collapse
-                class="prose px-1 pb-4"
-                x-html="essayContent"
-              ></div>
-            </li>
-          </template>
-        </ul>
-      </div>
-    </template>
+            <div x-show="openEssay === essay.id" x-collapse class="prose px-1 pb-4" x-html="essayContent"></div>
+          </li>
+        </template>
+      </ul>
+    </div>
+  </template>
 
-    <!-- Back to top button -->
-    <button
-      x-show="openEssay !== null"
-      @click="window.scrollTo({ top: 0, behavior: 'smooth' }); openEssay = null"
-      class="fixed bottom-6 right-6 bg-accent text-white rounded-full w-10 h-10 flex items-center justify-center shadow-lg"
-    >
-      ↑
-    </button>
-  </div>
+  <!-- Back to top -->
+  <button
+    x-show="openEssay !== null"
+    @click="window.scrollTo({ top: 0, behavior: 'smooth' }); openEssay = null"
+    class="fixed bottom-6 right-6 bg-accent text-white rounded-full w-10 h-10 flex items-center justify-center shadow-lg"
+  >↑</button>
+</div>
+
 
   <!-- DESKTOP GRID -->
   <div class="hidden lg:grid lg:grid-cols-4 gap-12">
@@ -57,3 +58,71 @@
             <span
               class="block text-lg font-semibold text-black"
               x-text="section.label"
+            ></span>
+            <ul class="mt-2 space-y-1 ml-2 border-l border-secondary pl-3">
+              <template
+                x-for="essay in filteredEssays(section.id)"
+                :key="essay.id"
+              >
+                <li>
+                  <a
+                    href="#"
+                    @click.prevent="openEssayDesktop(essay)"
+                    class="text-sm block transition"
+                    :class="activeEssayId === essay.id ? 'text-accent font-semibold' : 'text-gray-700 hover:text-secondary'"
+                    x-text="essay.title"
+                  ></a>
+                </li>
+              </template>
+            </ul>
+          </div>
+        </template>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <section class="lg:col-span-3 space-y-16">
+      <template x-for="section in sections" :key="section.id">
+        <div :id="section.id">
+          <h2
+            class="text-2xl font-semibold mb-6 border-b border-secondary pb-2 font-heading"
+            x-text="section.label"
+          ></h2>
+          <div class="space-y-10">
+            <template
+              x-for="essay in filteredEssays(section.id)"
+              :key="essay.id"
+            >
+              <article
+                :id="essay.id"
+                class="group border-b border-gray-200 pb-6"
+              >
+                <header
+                  class="mb-2 cursor-pointer"
+                  @click="openEssayDesktop(essay)"
+                >
+                  <h3
+                    class="text-xl font-semibold group-hover:text-secondary transition-colors"
+                    x-text="essay.title"
+                  ></h3>
+                  <p
+                    class="text-sm text-gray-600 line-clamp-2"
+                    x-text="essay.description"
+                  ></p>
+                </header>
+
+                <!-- Inline content area -->
+                <div
+                  x-show="currentEssay && currentEssay.id === essay.id"
+                  x-collapse
+                  class="prose max-w-none mt-4"
+                  x-html="essayContent"
+                ></div>
+              </article>
+            </template>
+          </div>
+        </div>
+      </template>
+    </section>
+  </div>
+</div>

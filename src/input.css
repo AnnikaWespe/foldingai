@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .prose blockquote {
+    @apply border-l-4 border-secondary pl-4 italic text-gray-700 text-lg my-6;
+  }
+}
