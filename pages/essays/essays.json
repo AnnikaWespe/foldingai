@@ -18,6 +18,14 @@
       "title": "Memento mori and the machine",
       "description": "How grappling with death is necessary for every entity that has a goal",
       "file": "mementomori.html"
+    },
+        {
+      "id": "rasing",
+      "section": "tech",
+      "title": "It takes guts to raise an AI",
+      "description": "What kind of parents do we want to be?",
+      "file": "raisingAI.html"
     }
+
   ]
 }
