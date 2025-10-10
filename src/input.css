@@ -2,8 +2,35 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components {
-  .prose blockquote {
-    @apply border-l-4 border-secondary pl-4 italic text-gray-700 text-lg my-6;
+
+/* ================================
+   Global Essay Formatting Classes
+   ================================ */
+
+/* Regular paragraphs */
+.paragraph {
+  @apply mt-5 text-base leading-relaxed text-gray-800;
+}
+
+/* Slightly tighter spacing and font size on mobile */
+@media (max-width: 640px) {
+  .paragraph {
+    @apply mt-4 text-[15px] leading-normal;
   }
+}
+
+/* Blockquotes (semantic quotes, already partly used) */
+.prose blockquote,
+blockquote {
+  @apply border-l-4 border-secondary pl-4 italic text-gray-700 text-lg my-6;
+}
+
+/* Pull quotes (standout lines, usually centered) */
+.pull-quote {
+  @apply my-8 text-lg text-gray-700 font-heading max-w-2xl mx-auto;
+}
+
+/* Subheadings within essays */
+.subheading {
+  @apply text-center text-lg font-semibold mt-10 mb-4 text-gray-800 tracking-wide;
 }
