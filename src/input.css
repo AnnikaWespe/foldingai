@@ -25,6 +25,11 @@ blockquote {
   @apply border-l-4 border-secondary pl-4 italic text-gray-700 text-lg my-6;
 }
 
+.prose blockquote span.source {
+  @apply text-sm italic text-gray-600;
+}
+
+
 /* Pull quotes (standout lines, usually centered) */
 .pull-quote {
   @apply my-8 text-lg text-gray-700 font-heading max-w-2xl mx-auto;

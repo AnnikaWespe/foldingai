@@ -959,6 +959,14 @@ blockquote {
   color: rgb(55 65 81 / var(--tw-text-opacity, 1));
 }
 
+.prose blockquote span.source {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-style: italic;
+  --tw-text-opacity: 1;
+  color: rgb(75 85 99 / var(--tw-text-opacity, 1));
+}
+
 /* Pull quotes (standout lines, usually centered) */
 
 .pull-quote {
