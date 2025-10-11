@@ -20,11 +20,18 @@
       "file": "mementomori.html"
     },
         {
-      "id": "rasing",
+      "id": "raising",
       "section": "tech",
       "title": "It takes guts to raise an AI",
       "description": "What kind of parents do we want to be?",
       "file": "raisingAI.html"
+    },
+        {
+      "id": "privilege",
+      "section": "society",
+      "title": "AI, privilege and The Other",
+      "description": "Why female perspective may be crucial for human-machine relations",
+      "file": "privilege.html"
     }
 
   ]
