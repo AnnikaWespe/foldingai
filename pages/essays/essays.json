@@ -19,20 +19,26 @@
       "description": "How grappling with death is necessary for every entity that has a goal",
       "file": "mementomori.html"
     },
-        {
+    {
       "id": "raising",
       "section": "tech",
       "title": "It takes guts to raise an AI",
       "description": "What kind of parents do we want to be?",
       "file": "raisingAI.html"
     },
-        {
+    {
       "id": "privilege",
       "section": "society",
       "title": "AI, privilege and The Other",
-      "description": "Why female perspective may be crucial for human-machine relations",
+      "description": "Why female perspectives may be crucial for human-machine relations",
       "file": "privilege.html"
+    },
+    {
+      "id": "intuition",
+      "section": "personal",
+      "title": "The weights of intuition",
+      "description": "How AI can help us find out what is really going on",
+      "file": "intuition.html"
     }
-
   ]
 }
