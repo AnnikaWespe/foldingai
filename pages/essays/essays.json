@@ -1,8 +1,8 @@
 {
   "sections": [
-    { "id": "personal", "label": "Personal" },
-    { "id": "society", "label": "Society" },
-    { "id": "tech", "label": "Tech" }
+    { "id": "personal", "label": "The Personal" },
+    { "id": "society", "label": "The Societal" },
+    { "id": "tech", "label": "The Artificial" }
   ],
   "essays": [
     {
