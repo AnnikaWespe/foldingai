@@ -17,18 +17,23 @@
       href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Tenor+Sans&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="src/include.css">
+    <link rel="stylesheet" href="src/include.css" />
     <script defer src="/libs/@alpinejs/collapse/dist/cdn.min.js"></script>
 
     <script defer src="/libs/alpinejs/dist/cdn.min.js"></script>
     <script>
       function router() {
         return {
-          route: "",
+          route: "core",
+          subhash: null,
           setRoute() {
-            this.route = window.location.hash?.replace("#", "") || "core";
+            const raw = (window.location.hash || "#core").slice(1); // e.g. "essays:memento-mori"
+            const [route, sub] = raw.split(":");
+            this.route = route || "core";
+            this.subhash = sub || null;
           },
           navigate(to) {
+            // e.g. navigate("essays") or navigate("essays:soap")
             window.location.hash = to;
             window.scrollTo({ top: 0, behavior: "smooth" });
           },
@@ -82,39 +87,37 @@
           <span class="block h-0.5 w-6 bg-black"></span>
         </button>
       </header>
-         
-    <!-- Mobile Menu -->
-    <div
-      id="mobile-menu"
-      class="hidden md:hidden bg-white border-b border-secondary"
-    >
-      <nav class="flex flex-col p-4 space-y-2">
-        <a href="#core" class="text-black hover:text-accent transition"
-          >Core Idea</a
-        >
-        <a href="#essays" class="text-black hover:text-accent transition"
-          >Reflecting</a
-        >
-        <a href="#speaking" class="text-black hover:text-accent transition"
-          >Speaking</a
-        >
-        <a href="#collaborate" class="text-black hover:text-accent transition"
-          >Collaborating</a
-        >
-        <a href="#about" class="text-black hover:text-accent transition"
-          >About</a
-        >
-      </nav>
-    </div>
 
-         <main x-show="route === 'core'">
-<div id="core">
-        </main>
-                 <main x-show="route === 'essays'">
-<div id="essays">
+      <!-- Mobile Menu -->
+      <div
+        id="mobile-menu"
+        class="hidden md:hidden bg-white border-b border-secondary"
+      >
+        <nav class="flex flex-col p-4 space-y-2">
+          <a href="#core" class="text-black hover:text-accent transition"
+            >Core Idea</a
+          >
+          <a href="#essays" class="text-black hover:text-accent transition"
+            >Reflecting</a
+          >
+          <a href="#speaking" class="text-black hover:text-accent transition"
+            >Speaking</a
+          >
+          <a href="#collaborate" class="text-black hover:text-accent transition"
+            >Collaborating</a
+          >
+          <a href="#about" class="text-black hover:text-accent transition"
+            >About</a
+          >
+        </nav>
+      </div>
 
-</div>
-        </main>
+      <main x-show="route === 'core'">
+        <div id="core"></div>
+      </main>
+      <main x-show="route === 'essays'">
+        <div id="essays"></div>
+      </main>
 
       <!-- Footer -->
       <footer

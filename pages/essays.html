@@ -20,7 +20,8 @@
                 class="w-full text-left py-2 text-sm flex justify-between items-center"
                 :class="openEssay === essay.id ? 'text-accent font-semibold' : 'text-gray-700 hover:text-secondary'"
               >
-                …
+                              <span x-text="essay.title"></span>
+              <span x-text="openEssay === essay.id ? '−' : '+'"></span>
               </button>
 
               <div
