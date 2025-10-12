@@ -75,32 +75,38 @@ function essayList() {
     sections: [],
     essays: [],
     currentEssay: null,
-    essayContent: "",
+    essayContent: '',
     activeEssayId: null,
+    openEssay: null, // for mobile
 
     async loadEssays() {
-      const res = await fetch("pages/essays/essays.json");
+      const res = await fetch('pages/essays/essays.json');
       const data = await res.json();
       this.sections = data.sections;
       this.essays = data.essays;
 
-      // 👇 Handle direct hash links on page load
+      // Auto-open essay if hash is present
       this.$nextTick(() => {
-        const hash = window.location.hash.replace("#", "");
+        const hash = window.location.hash.replace('#', '');
         if (hash) {
-          const essay = this.essays.find((e) => e.id === hash);
+          const essay = this.essays.find(e => e.id === hash);
           if (essay) {
-            this.loadEssay(essay);
-            document
-              .getElementById(essay.id)
-              ?.scrollIntoView({ behavior: "smooth", block: "start" });
+            if (window.innerWidth < 1024) {
+              // Mobile
+              this.openEssay = essay.id;
+              this.loadEssay(essay);
+              this.$nextTick(() => this.scrollToWithOffset('m-' + essay.id));
+            } else {
+              // Desktop
+              this.openEssayDesktop(essay);
+            }
           }
         }
       });
     },
 
     filteredEssays(sectionId) {
-      return this.essays.filter((e) => e.section === sectionId);
+      return this.essays.filter(e => e.section === sectionId);
     },
 
     async loadEssay(essay) {
@@ -108,13 +114,18 @@ function essayList() {
       this.essayContent = await res.text();
       this.currentEssay = essay;
       this.activeEssayId = essay.id;
-      history.replaceState(null, "", `#${essay.id}`); // 👈 Update URL hash
     },
 
-    // ✅ Desktop: toggle open/close + scroll
-openEssayDesktop(essay) {
+    scrollToWithOffset(id, offset = 80) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const y = el.getBoundingClientRect().top + window.pageYOffset - offset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    },
+
+async openEssayDesktop(essay) {
+  // toggle close if already open
   if (this.currentEssay && this.currentEssay.id === essay.id) {
-    // Close if already open
     this.currentEssay = null;
     this.essayContent = '';
     this.activeEssayId = null;
@@ -122,39 +133,80 @@ openEssayDesktop(essay) {
     return;
   }
 
-  this.loadEssay(essay);
+  await this.loadEssay(essay);
+  await this.$nextTick();
 
-  this.$nextTick(() => {
-    // Give x-collapse some time to expand fully before scrolling
-    setTimeout(() => {
-      const el = document.getElementById(essay.id);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    }, 300); // 300ms works well with typical collapse animations
-  });
+  const article = document.getElementById(essay.id);
+  const collapsible = article?.querySelector('[x-collapse]') || article;
+  const scroll = () => this.scrollToWithOffset(essay.id);
+
+  let done = false;
+  const handler = () => {
+    if (done) return;
+    done = true;
+    collapsible.removeEventListener('transitionend', handler);
+    scroll();
+  };
+
+  // scroll when the height transition finishes…
+  collapsible.addEventListener('transitionend', handler, { once: true });
+  // …or after a fallback delay if no transition fires
+  setTimeout(handler, 700);
+
+  history.replaceState(null, '', `#${essay.id}`);
 },
 
+async openEssayMobile(essay) {
+  const wasOpen = this.openEssay === essay.id;
+  if (wasOpen) {
+    this.openEssay = null;
+    history.replaceState(null, '', '#');
+    return;
+  }
 
-    // ✅ Scroll Spy remains active
+  this.openEssay = essay.id;
+  await this.loadEssay(essay);
+  await this.$nextTick();
+
+  const liId = 'm-' + essay.id;
+  const li = document.getElementById(liId);
+  const collapsible = li?.querySelector('[x-collapse]') || li;
+  const scroll = () => this.scrollToWithOffset(liId, 80);
+
+  let done = false;
+  const handler = () => {
+    if (done) return;
+    done = true;
+    collapsible.removeEventListener('transitionend', handler);
+    scroll();
+  };
+
+  collapsible.addEventListener('transitionend', handler, { once: true });
+  setTimeout(handler, 700);
+
+  history.replaceState(null, '', `#${essay.id}`);
+}
+,
+
     initScrollSpy() {
       const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
+        entries => {
+          entries.forEach(entry => {
             if (entry.isIntersecting) {
               this.activeEssayId = entry.target.id;
             }
           });
         },
-        { rootMargin: "-30% 0px -60% 0px", threshold: 0 }
+        { rootMargin: '-30% 0px -60% 0px', threshold: 0 }
       );
 
       this.$nextTick(() => {
-        this.essays.forEach((e) => {
+        this.essays.forEach(e => {
           const el = document.getElementById(e.id);
           if (el) observer.observe(el);
         });
       });
-    },
+    }
   };
 }
+

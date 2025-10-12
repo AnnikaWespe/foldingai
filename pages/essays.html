@@ -16,27 +16,11 @@
             <!-- give the LI a stable id to scroll to -->
             <li :id="'m-' + essay.id" class="border-b border-gray-200">
               <button
-               @click="
-  const wasOpen = openEssay === essay.id;
-  openEssay = wasOpen ? null : essay.id;
-  if (wasOpen) {
-    history.replaceState(null, '', '#');
-  } else {
-    loadEssay(essay);
-    history.replaceState(null, '', `#${essay.id}`);
-    $nextTick(() => {
-      setTimeout(() => {
-        const el = document.getElementById('m-' + essay.id);
-        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 300);
-    });
-  }
-"
-
-                ...
+                @click.prevent="openEssayMobile(essay)"
+                class="w-full text-left py-2 text-sm flex justify-between items-center"
+                :class="openEssay === essay.id ? 'text-accent font-semibold' : 'text-gray-700 hover:text-secondary'"
               >
-                <span x-text="essay.title"></span>
-                <span x-text="openEssay === essay.id ? '−' : '+'"></span>
+                …
               </button>
 
               <div
