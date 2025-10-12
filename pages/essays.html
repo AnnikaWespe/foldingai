@@ -3,50 +3,63 @@
   x-init="loadEssays(); initScrollSpy()"
   class="w-full max-w-7xl mx-auto px-4 py-12"
 >
- <!-- MOBILE LAYOUT -->
-<div class="lg:hidden" x-data="{ openEssay: null }">
-  <template x-for="section in sections" :key="section.id">
-    <div class="mb-6">
-      <h2 class="text-xl font-semibold mb-2 border-b border-secondary pb-1 font-heading"
-          x-text="section.label"></h2>
-      <ul class="space-y-1">
-        <template x-for="essay in filteredEssays(section.id)" :key="essay.id">
-          <!-- give the LI a stable id to scroll to -->
-          <li :id="'m-' + essay.id" class="border-b border-gray-200">
-            <button
-              @click="
-                const wasOpen = openEssay === essay.id;
-                openEssay = wasOpen ? null : essay.id;
-                loadEssay(essay);
-                $nextTick(() => {
-                  if (!wasOpen) {
-                    const el = document.getElementById('m-' + essay.id);
-                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                  }
-                });
-              "
-              class="w-full text-left py-2 text-sm flex justify-between items-center"
-              :class="openEssay === essay.id ? 'text-accent font-semibold' : 'text-gray-700 hover:text-secondary'"
-            >
-              <span x-text="essay.title"></span>
-              <span x-text="openEssay === essay.id ? '−' : '+'"></span>
-            </button>
+  <!-- MOBILE LAYOUT -->
+  <div class="lg:hidden" x-data="{ openEssay: null }">
+    <template x-for="section in sections" :key="section.id">
+      <div class="mb-6">
+        <h2
+          class="text-xl font-semibold mb-2 border-b border-secondary pb-1 font-heading"
+          x-text="section.label"
+        ></h2>
+        <ul class="space-y-1">
+          <template x-for="essay in filteredEssays(section.id)" :key="essay.id">
+            <!-- give the LI a stable id to scroll to -->
+            <li :id="'m-' + essay.id" class="border-b border-gray-200">
+              <button
+               @click="
+  const wasOpen = openEssay === essay.id;
+  openEssay = wasOpen ? null : essay.id;
+  if (wasOpen) {
+    history.replaceState(null, '', '#');
+  } else {
+    loadEssay(essay);
+    history.replaceState(null, '', `#${essay.id}`);
+    $nextTick(() => {
+      setTimeout(() => {
+        const el = document.getElementById('m-' + essay.id);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 300);
+    });
+  }
+"
 
-            <div x-show="openEssay === essay.id" x-collapse class="prose px-1 pb-4" x-html="essayContent"></div>
-          </li>
-        </template>
-      </ul>
-    </div>
-  </template>
+                ...
+              >
+                <span x-text="essay.title"></span>
+                <span x-text="openEssay === essay.id ? '−' : '+'"></span>
+              </button>
 
-  <!-- Back to top -->
-  <button
-    x-show="openEssay !== null"
-    @click="window.scrollTo({ top: 0, behavior: 'smooth' }); openEssay = null"
-    class="fixed bottom-6 right-6 bg-accent text-white rounded-full w-10 h-10 flex items-center justify-center shadow-lg"
-  >↑</button>
-</div>
+              <div
+                x-show="openEssay === essay.id"
+                x-collapse
+                class="prose px-1 pb-4"
+                x-html="essayContent"
+              ></div>
+            </li>
+          </template>
+        </ul>
+      </div>
+    </template>
 
+    <!-- Back to top -->
+    <button
+      x-show="openEssay !== null"
+      @click="window.scrollTo({ top: 0, behavior: 'smooth' }); openEssay = null"
+      class="fixed bottom-6 right-6 bg-accent text-white rounded-full w-10 h-10 flex items-center justify-center shadow-lg"
+    >
+      ↑
+    </button>
+  </div>
 
   <!-- DESKTOP GRID -->
   <div class="hidden lg:grid lg:grid-cols-4 gap-12">

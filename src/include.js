@@ -41,7 +41,7 @@ function loadHeaderAndFooterFunctions() {
 }
 
 function loadContent() {
-    fetch("pages/core.html")
+  fetch("pages/core.html")
     .then((res) => res.text())
     .then((data) => {
       const element = document.getElementById("core");
@@ -70,27 +70,37 @@ function loadEmailAddress() {
   });
 }
 
-
-
-
-
 function essayList() {
   return {
     sections: [],
     essays: [],
     currentEssay: null,
-    essayContent: '',
+    essayContent: "",
     activeEssayId: null,
 
     async loadEssays() {
-      const res = await fetch('pages/essays/essays.json');
+      const res = await fetch("pages/essays/essays.json");
       const data = await res.json();
       this.sections = data.sections;
       this.essays = data.essays;
+
+      // 👇 Handle direct hash links on page load
+      this.$nextTick(() => {
+        const hash = window.location.hash.replace("#", "");
+        if (hash) {
+          const essay = this.essays.find((e) => e.id === hash);
+          if (essay) {
+            this.loadEssay(essay);
+            document
+              .getElementById(essay.id)
+              ?.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        }
+      });
     },
 
     filteredEssays(sectionId) {
-      return this.essays.filter(e => e.section === sectionId);
+      return this.essays.filter((e) => e.section === sectionId);
     },
 
     async loadEssay(essay) {
@@ -98,32 +108,53 @@ function essayList() {
       this.essayContent = await res.text();
       this.currentEssay = essay;
       this.activeEssayId = essay.id;
+      history.replaceState(null, "", `#${essay.id}`); // 👈 Update URL hash
     },
 
-    openEssayDesktop(essay) {
-      this.loadEssay(essay);
-      document.getElementById(essay.id)?.scrollIntoView({ behavior: 'smooth' });
-    },
+    // ✅ Desktop: toggle open/close + scroll
+openEssayDesktop(essay) {
+  if (this.currentEssay && this.currentEssay.id === essay.id) {
+    // Close if already open
+    this.currentEssay = null;
+    this.essayContent = '';
+    this.activeEssayId = null;
+    history.replaceState(null, '', '#');
+    return;
+  }
 
-      initScrollSpy() {
-        const observer = new IntersectionObserver(
-          entries => {
-            entries.forEach(entry => {
-              if (entry.isIntersecting) {
-                this.activeEssayId = entry.target.id;
-              }
-            });
-          },
-          { rootMargin: '-30% 0px -60% 0px', threshold: 0 }
-        );
+  this.loadEssay(essay);
 
-        this.$nextTick(() => {
-          this.essays.forEach(e => {
-            const el = document.getElementById(e.id);
-            if (el) observer.observe(el);
-          });
-        });
+  this.$nextTick(() => {
+    // Give x-collapse some time to expand fully before scrolling
+    setTimeout(() => {
+      const el = document.getElementById(essay.id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
+    }, 300); // 300ms works well with typical collapse animations
+  });
+},
+
+
+    // ✅ Scroll Spy remains active
+    initScrollSpy() {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              this.activeEssayId = entry.target.id;
+            }
+          });
+        },
+        { rootMargin: "-30% 0px -60% 0px", threshold: 0 }
+      );
+
+      this.$nextTick(() => {
+        this.essays.forEach((e) => {
+          const el = document.getElementById(e.id);
+          if (el) observer.observe(el);
+        });
+      });
+    },
   };
 }
-
