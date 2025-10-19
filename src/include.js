@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 cleanPath();
+headerFade();
 
 function cleanPath() {
   const allowedPaths = [
@@ -70,46 +71,57 @@ function loadEmailAddress() {
   });
 }
 
+function headerFade() {
+ document.addEventListener("scroll", () => {
+    const header = document.getElementById("mainHeader");
+    const fadeDistance = 70; // smaller number = faster fade
+    const scrollTop = window.scrollY;
+    const opacity = 1 - Math.min(scrollTop / fadeDistance, 1);
+    header.style.opacity = opacity.toFixed(2);
+  });
+}
+
 function essayList() {
   return {
     sections: [],
     essays: [],
     currentEssay: null,
-    essayContent: '',
+    essayContent: "",
     activeEssayId: null,
     openEssay: null, // for mobile
 
-async loadEssays() {
-  const res = await fetch('pages/essays/essays.json');
-  const data = await res.json();
-  this.sections = data.sections;
-  this.essays = data.essays;
+    async loadEssays() {
+      const res = await fetch("pages/essays/essays.json");
+      const data = await res.json();
+      this.sections = data.sections;
+      this.essays = data.essays;
 
-  const handleDeepLink = () => {
-    const raw = (window.location.hash || "").slice(1); // "essays:slug"
-    const [route, sub] = raw.split(":");
-    if (route === "essays" && sub) {
-      const essay = this.essays.find(e => e.id === sub);
-      if (!essay) return;
-      if (window.innerWidth < 1024) {
-        // mobile open (no toggle-close on arrival)
-        this.openEssay = essay.id;
-        this.loadEssay(essay).then(() => {
-          this.$nextTick(() => setTimeout(() => this.scrollToWithOffset('m-' + essay.id), 50));
-        });
-      } else {
-        // desktop open
-        this.openEssayDesktop(essay);
-      }
-    }
-  };
+      const handleDeepLink = () => {
+        const raw = (window.location.hash || "").slice(1); // "essays:slug"
+        const [route, sub] = raw.split(":");
+        if (route === "essays" && sub) {
+          const essay = this.essays.find((e) => e.id === sub);
+          if (!essay) return;
+          if (window.innerWidth < 1024) {
+            // mobile open (no toggle-close on arrival)
+            this.openEssay = essay.id;
+            this.loadEssay(essay).then(() => {
+              this.$nextTick(() =>
+                setTimeout(() => this.scrollToWithOffset("m-" + essay.id), 50)
+              );
+            });
+          } else {
+            // desktop open
+            this.openEssayDesktop(essay);
+          }
+        }
+      };
 
-  this.$nextTick(handleDeepLink);
-  window.addEventListener('hashchange', handleDeepLink);
-}
-,
+      this.$nextTick(handleDeepLink);
+      window.addEventListener("hashchange", handleDeepLink);
+    },
     filteredEssays(sectionId) {
-      return this.essays.filter(e => e.section === sectionId);
+      return this.essays.filter((e) => e.section === sectionId);
     },
 
     async loadEssay(essay) {
@@ -123,72 +135,71 @@ async loadEssays() {
       const el = document.getElementById(id);
       if (!el) return;
       const y = el.getBoundingClientRect().top + window.pageYOffset - offset;
-      window.scrollTo({ top: y, behavior: 'smooth' });
+      window.scrollTo({ top: y, behavior: "smooth" });
     },
 
-openEssayMobile(essay) {
-  const wasOpen = this.openEssay === essay.id;
+    openEssayMobile(essay) {
+      const wasOpen = this.openEssay === essay.id;
 
-  if (wasOpen) {
-    // Close if already open
-    this.openEssay = null;
-    history.replaceState(null, '', '#essays');
-    return;
-  }
+      if (wasOpen) {
+        // Close if already open
+        this.openEssay = null;
+        history.replaceState(null, "", "#essays");
+        return;
+      }
 
-  this.openEssay = essay.id;
-  this.loadEssay(essay).then(() => {
-    this.$nextTick(() => {
-      // wait a bit for x-collapse to finish before scrolling
+      this.openEssay = essay.id;
+      this.loadEssay(essay).then(() => {
+        this.$nextTick(() => {
+          // wait a bit for x-collapse to finish before scrolling
+          setTimeout(() => {
+            this.scrollToWithOffset("m-" + essay.id);
+          }, 350);
+        });
+        history.replaceState(null, "", `#essays:${essay.id}`);
+      });
+    },
+
+    async openEssayDesktop(essay) {
+      const wasOpen = this.currentEssay && this.currentEssay.id === essay.id;
+
+      if (wasOpen) {
+        // Close essay if clicked again
+        this.currentEssay = null;
+        this.essayContent = "";
+        this.activeEssayId = null;
+        history.replaceState(null, "", "#essays");
+        return;
+      }
+
+      await this.loadEssay(essay);
+      await this.$nextTick();
+      // Wait for collapse animation to finish before scrolling
       setTimeout(() => {
-        this.scrollToWithOffset('m-' + essay.id);
+        this.scrollToWithOffset(essay.id);
       }, 350);
-    });
-    history.replaceState(null, '', `#essays:${essay.id}`);
-  });
-},
 
-async openEssayDesktop(essay) {
-  const wasOpen = this.currentEssay && this.currentEssay.id === essay.id;
-
-  if (wasOpen) {
-    // Close essay if clicked again
-    this.currentEssay = null;
-    this.essayContent = '';
-    this.activeEssayId = null;
-    history.replaceState(null, '', '#essays');
-    return;
-  }
-
-  await this.loadEssay(essay);
-  await this.$nextTick();
-  // Wait for collapse animation to finish before scrolling
-  setTimeout(() => {
-    this.scrollToWithOffset(essay.id);
-  }, 350);
-
-  history.replaceState(null, '', `#essays:${essay.id}`);
-},
+      history.replaceState(null, "", `#essays:${essay.id}`);
+    },
 
     initScrollSpy() {
       const observer = new IntersectionObserver(
-        entries => {
-          entries.forEach(entry => {
+        (entries) => {
+          entries.forEach((entry) => {
             if (entry.isIntersecting) {
               this.activeEssayId = entry.target.id;
             }
           });
         },
-        { rootMargin: '-30% 0px -60% 0px', threshold: 0 }
+        { rootMargin: "-30% 0px -60% 0px", threshold: 0 }
       );
 
       this.$nextTick(() => {
-        this.essays.forEach(e => {
+        this.essays.forEach((e) => {
           const el = document.getElementById(e.id);
           if (el) observer.observe(el);
         });
       });
-    }
+    },
   };
 }
-

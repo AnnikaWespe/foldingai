@@ -4,6 +4,7 @@
   class="w-full max-w-7xl mx-auto px-4 py-12"
 >
   <!-- MOBILE LAYOUT -->
+
   <div class="lg:hidden" x-data="{ openEssay: null }">
     <template x-for="section in sections" :key="section.id">
       <div class="mb-6">
@@ -20,9 +21,14 @@
                 class="w-full text-left py-2 text-sm flex justify-between items-center"
                 :class="openEssay === essay.id ? 'text-accent font-semibold' : 'text-gray-700 hover:text-secondary'"
               >
-                              <span x-text="essay.title"></span>
-              <span x-text="openEssay === essay.id ? '−' : '+'"></span>
+                <span x-text="essay.title"></span>
+                <span x-text="openEssay === essay.id ? '−' : '+'"></span>
               </button>
+              <p
+                x-show="openEssay === essay.id"
+                class="text-xs text-gray-600 italic mb-2"
+                x-text="essay.description"
+              ></p>
 
               <div
                 x-show="openEssay === essay.id"

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Folding AI</title>
+    <title>unFoldingAI</title>
     <link rel="stylesheet" href="dist/style.css" />
     <link rel="icon" type="image/x-icon" href="assets/Logo.svg" />
 
@@ -48,16 +48,18 @@
   >
     <body class="bg-white text-black min-h-screen flex flex-col font-body">
       <!-- Header -->
+
       <header
-        class="flex justify-between items-center p-4 border-b border-secondary bg-white"
+        class="flex justify-between items-center p-4 border-b border-secondary bg-white transition-opacity duration-700"
+        id="mainHeader"
       >
         <!-- Logo -->
         <a class="flex items-center space-x-2" href="#core">
           <div class="w-20 h-20 flex items-center justify-center">
-            <img src="assets/Logo.svg" alt="foldingai" />
+            <img src="assets/Logo.svg" alt="unFoldingai" />
           </div>
           <span class="font-semibold text-2xl text-black font-heading"
-            >FoldingAI</span
+            >unFoldingAI</span
           >
         </a>
 
@@ -123,7 +125,7 @@
       <footer
         class="mt-auto py-6 px-4 border-t border-secondary text-center text-sm text-black bg-white"
       >
-        © <span id="year"></span> FoldingAI
+        © <span id="year"></span> unFoldingAI
       </footer>
     </body>
   </div>

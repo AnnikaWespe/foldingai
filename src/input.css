@@ -39,3 +39,18 @@ blockquote {
 .subheading {
   @apply text-center text-lg font-semibold mt-10 mb-4 text-gray-800 tracking-wide;
 }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 1s ease-out forwards;
+}
+
+#mainHeader {
+  transition: opacity 0.5s ease-out;
+}
+
+
