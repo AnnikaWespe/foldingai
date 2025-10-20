@@ -19,7 +19,6 @@
     />
     <link rel="stylesheet" href="src/include.css" />
     <script defer src="/libs/@alpinejs/collapse/dist/cdn.min.js"></script>
-
     <script defer src="/libs/alpinejs/dist/cdn.min.js"></script>
     <script>
       function router() {
@@ -27,13 +26,13 @@
           route: "core",
           subhash: null,
           setRoute() {
-            const raw = (window.location.hash || "#core").slice(1); // e.g. "essays:memento-mori"
+            const raw = (window.location.hash || "#core").slice(1);
             const [route, sub] = raw.split(":");
             this.route = route || "core";
             this.subhash = sub || null;
+            window.scrollTo({ top: 0, behavior: "smooth" }); // smooth correction
           },
           navigate(to) {
-            // e.g. navigate("essays") or navigate("essays:soap")
             window.location.hash = to;
             window.scrollTo({ top: 0, behavior: "smooth" });
           },

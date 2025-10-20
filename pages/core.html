@@ -3,11 +3,36 @@
   <section
     class="max-w-5xl mx-auto px-6 py-20 sm:py-24 text-center opacity-0 animate-fadeIn"
   >
-    <h1
-      class="text-4xl sm:text-5xl font-heading font-semibold mb-6 tracking-tight"
-    >
-      unFoldingAI
-    </h1>
+<h1
+  class="text-4xl sm:text-5xl font-heading font-semibold mb-6 tracking-tight text-accent transition-opacity duration-75"
+  x-data="{ scrolling: false, flickerTimer: null }"
+  x-init="
+    const el = $el;
+    let scrollTimeout;
+
+    const startFlicker = () => {
+      if (flickerTimer) return; // already flickering
+      flickerTimer = setInterval(() => {
+        el.style.opacity = Math.random() < 0.5 ? 0 : 1;
+      }, 40); // speed of nervous flicker
+    };
+
+    const stopFlicker = () => {
+      clearInterval(flickerTimer);
+      flickerTimer = null;
+      el.style.opacity = 1; // reset
+    };
+
+    window.addEventListener('scroll', () => {
+      clearTimeout(scrollTimeout);
+      startFlicker();
+      scrollTimeout = setTimeout(stopFlicker, 200); // stop after 200ms idle
+    });
+  "
+>
+  unFoldingAI
+</h1>
+
     <p
       class="text-lg sm:text-xl text-gray-800 leading-relaxed max-w-2xl mx-auto"
     >
@@ -21,32 +46,33 @@
     class="max-w-3xl mx-auto px-6 sm:px-8 py-8 sm:py-12 border-t border-secondary/40"
   >
     <p class="paragraph">
-      This site is a philosophical starting point for rethinking how humans and
-      machines relate - to themselves and to each other. <br> 
-      You're invited to mold this space of lived reflection and dialogue.
+      This site is a starting point for rethinking how humans and machines
+      relate - to themselves and to each other. <br />
+      Feel invited to an exploration of morals, consciousness, aesthetics and
+      what may become possible in the future.
     </p>
 
-    <p class="paragraph mt-6">For a start, what I offer are:</p>
+    <p class="paragraph mt-6">To unfold AI we offer</p>
 
     <ul class="list-disc ml-6 my-4 space-y-2 sm:space-y-3">
       <li>
-        <a href="/essays" class="text-secondary hover:text-accent transition">
+        <a href="#essays" class="text-secondary hover:text-accent transition">
           a collection of essays
         </a>
       </li>
       <li>
-        <a href="/talks" class="text-secondary hover:text-accent transition">
+        <a href="#talks" class="text-secondary hover:text-accent transition">
           speaking engagements at conferences and gatherings
         </a>
       </li>
       <li>
-        <a href="/exchange" class="text-secondary hover:text-accent transition">
-          individual conversations and exchange
+        <a href="#exchange" class="text-secondary hover:text-accent transition">
+          individual conversations, exchange and coaching
         </a>
       </li>
       <li>
         <a
-          href="/simulation"
+          href="#simulation"
           class="text-secondary hover:text-accent transition"
         >
           the group format of systemic simulation — to collectively explore what
@@ -56,9 +82,9 @@
     </ul>
 
     <p class="paragraph">
-      My attitude toward AI is cautiously optimistic: I see immense potential
-      for unfolding human understanding, yet I remain aware of its limitations
-      and the risks of political instrumentalization.
+      Our attitude toward AI is cautiously optimistic: We see immense potential
+      for unfolding human understanding, yet remain aware of its limitations and
+      the risks of political instrumentalization.
     </p>
   </section>
 
@@ -66,9 +92,36 @@
   <section
     class="max-w-2xl mx-auto px-6 sm:px-8 py-16 sm:py-20 text-center border-t border-secondary/30"
   >
-    <blockquote class="italic text-lg sm:text-xl text-gray-700 leading-relaxed">
-      “When reflection itself becomes the medium, philosophy turns into dialogue
-      — between hemispheres, between humans, between human and machine.”
-    </blockquote>
+<section
+  id="quote-section"
+  class="max-w-3xl mx-auto py-16 px-6 text-center text-secondary/40 opacity-0 translate-y-8 transition-all duration-[2000ms]"
+  x-data
+  x-init="
+    const el = $el;
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            el.classList.remove('opacity-0', 'translate-y-8');
+            el.classList.add('opacity-100', 'translate-y-0');
+            observer.unobserve(el); // trigger only once
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+    observer.observe(el);
+  "
+>
+  <blockquote class="italic text-lg md:text-xl transition-colors duration-[2000ms]">
+    “Death allows us to put an asterisk to all our endeavors that we so vividly pursue:
+    <span class='not-italic font-medium'>*if I don't die first.</span> <br>
+    It is a sobering thought, and deeply needed for any entity that can reflect back on themselves.”
+  </blockquote>
+</section>
+
+
+
+
   </section>
 </main>

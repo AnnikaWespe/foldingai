@@ -56,6 +56,7 @@ function loadContent() {
       const element = document.getElementById("essays");
       if (element) {
         element.innerHTML = data;
+        coreQuote();
       }
     });
 }
@@ -72,13 +73,37 @@ function loadEmailAddress() {
 }
 
 function headerFade() {
- document.addEventListener("scroll", () => {
+  document.addEventListener("scroll", () => {
     const header = document.getElementById("mainHeader");
     const fadeDistance = 70; // smaller number = faster fade
     const scrollTop = window.scrollY;
     const opacity = 1 - Math.min(scrollTop / fadeDistance, 1);
     header.style.opacity = opacity.toFixed(2);
   });
+}
+
+function coreQuote() {
+  const quote = document.getElementById("quote-section");
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          quote.classList.remove(
+            "opacity-0",
+            "translate-y-8",
+            "text-secondary/40"
+          );
+          quote.classList.add("opacity-100", "translate-y-0", "text-black");
+          observer.unobserve(quote); // only trigger once
+        }
+      });
+    },
+    { threshold: 0.3 }
+  );
+
+  if (quote) observer.observe(quote);
+  console.log(quote);
 }
 
 function essayList() {
