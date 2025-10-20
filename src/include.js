@@ -56,7 +56,6 @@ function loadContent() {
       const element = document.getElementById("essays");
       if (element) {
         element.innerHTML = data;
-        coreQuote();
       }
     });
 }
@@ -82,29 +81,6 @@ function headerFade() {
   });
 }
 
-function coreQuote() {
-  const quote = document.getElementById("quote-section");
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          quote.classList.remove(
-            "opacity-0",
-            "translate-y-8",
-            "text-secondary/40"
-          );
-          quote.classList.add("opacity-100", "translate-y-0", "text-black");
-          observer.unobserve(quote); // only trigger once
-        }
-      });
-    },
-    { threshold: 0.3 }
-  );
-
-  if (quote) observer.observe(quote);
-  console.log(quote);
-}
 
 function essayList() {
   return {
