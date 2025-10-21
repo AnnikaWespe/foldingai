@@ -1,3 +1,4 @@
+const offsetMobile = 8;
 document.addEventListener("DOMContentLoaded", function () {
   loadContent();
   loadEmailAddress();
@@ -108,7 +109,7 @@ function essayList() {
             this.openEssay = essay.id;
             this.loadEssay(essay).then(() => {
               this.$nextTick(() =>
-                setTimeout(() => this.scrollToWithOffset("m-" + essay.id), 50)
+                setTimeout(() => this.scrollToWithOffset("m-" + essay.id, offsetMobile), 50)
               );
             });
           } else {
@@ -154,7 +155,7 @@ function essayList() {
         this.$nextTick(() => {
           // wait a bit for x-collapse to finish before scrolling
           setTimeout(() => {
-            this.scrollToWithOffset("m-" + essay.id);
+            this.scrollToWithOffset("m-" + essay.id, offsetMobile);
           }, 350);
         });
         history.replaceState(null, "", `#essays:${essay.id}`);

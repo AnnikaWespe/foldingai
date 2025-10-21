@@ -22,13 +22,13 @@
     {
       "id": "raising",
       "section": "tech",
-      "title": "RaisingAI",
+      "title": "raisingAI",
       "description": "What kind of parents do we want to be?",
       "file": "raisingAI.html"
     },
     {
       "id": "privilege",
-      "section": "society",
+      "section": "none",
       "title": "AI, privilege and The Other",
       "description": "Why female perspectives may be crucial for human-machine relations",
       "file": "privilege.html"
@@ -46,6 +46,13 @@
       "title": "Go wash your hands",
       "description": "Embracing AI for better people skills",
       "file": "soap.html"
+    },
+            {
+      "id": "microservice",
+      "section": "society",
+      "title": "Psychology and software architecture",
+      "description": "How to be a good microservice",
+      "file": "microservice.html"
     }
 
   ]
