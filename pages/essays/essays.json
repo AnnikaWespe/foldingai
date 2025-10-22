@@ -8,7 +8,7 @@
     {
       "id": "jump",
       "section": "personal",
-      "title": "Jumping into the Abyss",
+      "title": "Jumping into the abyss",
       "description": "A personal account about the possibility to short-circuit your mind.",
       "file": "abyss.html"
     },
@@ -50,8 +50,8 @@
             {
       "id": "microservice",
       "section": "society",
-      "title": "Psychology and software architecture",
-      "description": "How to be a good microservice",
+      "description": "On psychology and software architecture",
+      "title": "How to be a good microservice",
       "file": "microservice.html"
     }
 

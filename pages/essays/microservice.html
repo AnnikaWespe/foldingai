@@ -1,15 +1,17 @@
 <p class="paragraph">
-  Many people consider technical and social skills as two different realms — one
-  for logic and precision, the other for empathy and communication. In truth,
-  they are not opposites at all. Good software is nothing other than good
-  communication, formalized: between a program and its user, between one module
-  and another, and between one programmer and another — even across time.
+  Software developers don't have the greatest reputation when it comes to social
+  skills. We're seen as somewhat reclusive, more concerned with abstract thought
+  than with people and their messy opinions and emotions. Here, however, I want
+  to argue that experienced software devs actually have a leg up when it comes
+  to people skills. Writing good software is nothing other than laying down good
+  communication: between a program and its user, between one module and another,
+  and between one programmer and another — even across time.
 </p>
 
 <p class="paragraph">
   The same principles that make for a well-structured codebase also foster
-  graceful collaboration and autonomous, well-functioning systems — whether
-  those systems are made of silicon or of people.
+  graceful collaboration between autonomous, well-functioning entities —
+  regardless of whether these entities are based on carbon or silicon.
 </p>
 
 <p class="paragraph">
@@ -19,37 +21,41 @@
   rewriting its inner workings. In software architecture, this idea evolved into
   microservices — instead of one monolithic block dictating everything, a
   constellation of small, self-contained services communicate through clearly
-  defined interfaces, each with its own language, timing, and local logic.
+  defined interfaces, each with its own language, timing, and inherent logic.
 </p>
 
 <p class="paragraph">
-  This maps beautifully onto systemic principles. A complex system — be it a
-  team, an organisation, or a person — cannot be “fixed” by external
-  intervention. Its logic emerged to meet its own challenges, and to truly
-  understand or improve it, one would have to replicate it completely — which is
-  impossible. The moment you start modifying its core from the outside, you
-  break more than you build.
+  This maps neatly onto systemic principles. A complex system — be it a team, an
+  organisation, or a person — cannot be “fixed” by external intervention. Its
+  logic emerged to meet its own challenges, and to truly understand or improve
+  it, one would have to replicate it completely — impossible when it comes to
+  other people, and often too much work in the case of large codebases.
 </p>
 
 <p class="paragraph">
-  The alternative is both humbler and more effective: communicate through the
-  system’s own API. Don’t try to override someone’s internal code; send a
-  request instead. Ask, listen, receive data. If it’s not working as expected,
-  file a bug report: What did you do? What was your actual goal? What did you
-  get instead? Be concrete — developers appreciate it when you attach a
-  screenshot, that is, when you describe precisely what happened and what was
-  said. Then, mind the environment — the context. Were there special
-  circumstances that led to the unusual behaviour? Sometimes, a service is
-  simply lacking resources to perform properly.
+  Without such understanding, any attempt to modify a system from the outside
+  will fail in subtle ways — your tools will simply be too coarse for the
+  complexity you're working on.
 </p>
 
 <p class="paragraph">
-  And if you find yourself in a similar bind — the incoming request doesn’t
-  match any of your endpoints, and your first instinct would be to return
-  “Unknown error” — be kind and provide some context for the bug. At which point
-  in the program did it fail exactly? What request did you receive, and what did
-  you actually expect? Date formatting errors do have a way of creeping in, you
-  know.
+  So the truth is that both with people or with software, you can only
+  communicate through the available endpoints. Don’t try to override someone’s
+  internal code; send a request instead. Ask, wait, receive data. If it’s not
+  working as expected, file a bug report: What did you do? What was your actual
+  goal? What did you get instead? Be very specific — developers appreciate it
+  when you attach a screenshot. Also, mind the environment — the context. Were
+  there special circumstances that led to the unusual behaviour? Sometimes, a
+  service is simply lacking resources to perform properly.
+</p>
+
+<p class="paragraph">
+  And if you find yourself irritated by someone’s request — when the request
+  doesn’t match any of your endpoints, and your first instinct would be to
+  return “Unknown error” — be kind and provide some context for the bug. At
+  which point in the program did it fail exactly? What request did you receive,
+  and what did you actually expect? Date formatting errors do have a way of
+  creeping in, you know.
 </p>
 
 <p class="paragraph">
@@ -62,9 +68,12 @@
 <p class="paragraph">And one more thing:</p>
 
 <p class="pull-quote">Keep your dependencies updated.</p>
+
 <p class="paragraph">
-  In some situations you may be using deprecated libraries, state of the art at
-  the time, but in the meanwhile you've learned and grown and explored different
-  ways of being, that might carry over to situations where you feel stuck in
-  your ways. Check if there's a better way to do things now.
+  In some situations, you may still be running on deprecated libraries. They were
+  state of the art when the program was first set up, but in the meantime you’ve
+  developed new ways of being. So when a situation feels stuck or outdated, a
+  good question to ask is: “Are there situations where I handle this better? What’s
+  different in those moments?” You might be in for a version change.
 </p>
+
