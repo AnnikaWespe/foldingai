@@ -12,6 +12,36 @@
       "description": "A personal account about the possibility to short-circuit your mind.",
       "file": "abyss.html"
     },
+        {
+      "id": "intuition",
+      "section": "personal",
+      "title": "The statistics of intuition",
+      "description": "How AI can help us find out what is really going on",
+      "file": "intuition.html"
+    },
+        {
+      "id": "privilege",
+      "section": "none",
+      "title": "AI, privilege and The Other",
+      "description": "Why female perspectives may be crucial for human-machine relations",
+      "file": "privilege.html"
+    },
+
+        {
+      "id": "soap",
+      "section": "society",
+      "title": "Go wash your hands",
+      "description": "Embracing AI for better people skills",
+      "file": "soap.html"
+    },
+    
+            {
+      "id": "microservice",
+      "section": "society",
+      "description": "On psychology and software architecture",
+      "title": "How to be a good microservice",
+      "file": "microservice.html"
+    },
     {
       "id": "memento",
       "section": "tech",
@@ -25,34 +55,6 @@
       "title": "raisingAI",
       "description": "What kind of parents do we want to be?",
       "file": "raisingAI.html"
-    },
-    {
-      "id": "privilege",
-      "section": "none",
-      "title": "AI, privilege and The Other",
-      "description": "Why female perspectives may be crucial for human-machine relations",
-      "file": "privilege.html"
-    },
-    {
-      "id": "intuition",
-      "section": "personal",
-      "title": "The statistics of intuition",
-      "description": "How AI can help us find out what is really going on",
-      "file": "intuition.html"
-    },
-        {
-      "id": "soap",
-      "section": "society",
-      "title": "Go wash your hands",
-      "description": "Embracing AI for better people skills",
-      "file": "soap.html"
-    },
-            {
-      "id": "microservice",
-      "section": "society",
-      "description": "On psychology and software architecture",
-      "title": "How to be a good microservice",
-      "file": "microservice.html"
     }
 
   ]
