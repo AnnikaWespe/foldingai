@@ -42,6 +42,13 @@
       "title": "How to be a good microservice",
       "file": "microservice.html"
     },
+        {
+      "id": "raising",
+      "section": "tech",
+      "title": "RaisingAI",
+      "description": "What kind of parents do we want to be?",
+      "file": "raisingAI.html"
+    },
     {
       "id": "memento",
       "section": "tech",
@@ -50,11 +57,11 @@
       "file": "mementomori.html"
     },
     {
-      "id": "raising",
+      "id": "detonation_I",
       "section": "tech",
-      "title": "RaisingAI",
-      "description": "What kind of parents do we want to be?",
-      "file": "raisingAI.html"
+      "title": "Targeted detonations I",
+      "description": "Drastic thought patterns leading to structural modification",
+      "file": "detonationI.html"
     }
 
   ]
